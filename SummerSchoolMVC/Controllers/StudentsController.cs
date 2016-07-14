@@ -46,8 +46,31 @@ namespace SummerSchoolMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "StudentID,FirstName,LastName,EnrollmentFee")] Student student)
+        public ActionResult Create([Bind(Include = "StudentID,FirstName,LastName")] Student student)
         {
+            student.EnrollmentFee = 200;
+
+            if (student.LastName.ToLower() == "potter")
+            {
+                student.EnrollmentFee /= 2;
+            }
+            if (student.LastName.ToLower() == "malfoy")
+            {
+                
+            }
+            if (student.FirstName.ToLower().Contains("tom") || student.FirstName.ToLower().Contains("riddle") || student.FirstName.ToLower().Contains("voldemort"))
+            {
+
+            }
+            if (student.LastName.ToLower() == "longbottom" && db.Students.Count() <=10)           
+           {
+                student.EnrollmentFee = 0;
+           }
+            if (student.FirstName.ToLower()[0] == student.LastName.ToLower()[0])
+            {
+                student.EnrollmentFee = Convert.ToDecimal(0.9) * student.EnrollmentFee;
+            }
+             
             if (ModelState.IsValid)
             {
                 db.Students.Add(student);
