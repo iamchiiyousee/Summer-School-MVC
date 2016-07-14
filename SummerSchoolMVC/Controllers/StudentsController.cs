@@ -17,6 +17,7 @@ namespace SummerSchoolMVC.Controllers
         // GET: Students
         public ActionResult Index()
         {
+            
             return View(db.Students.ToList());
         }
 
